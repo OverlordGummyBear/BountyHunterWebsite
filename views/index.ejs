@@ -1,0 +1,40 @@
+<%- include("partials/header.ejs") %>
+
+    <div class="index-page-container">
+        
+        <img src="/images/rick-and-morty.png" alt="Rick and morty coming out of a portal" class="portal-pic">
+        <h1>Find a Bounty</h1>
+        
+        <!--All filter options when searching for characters-->
+        <div class="filter-container">
+            <form>
+                <label for="name"> Name </label>
+                <input type="text" id="name" name="name"> <br>
+                <label for="species"> Species </label>
+                <input type="text" id="species" name="species"> <br>
+                <label for="type"> Type </label>
+                <input type="text" id="type" name="type"> <br>
+                <label for="Gender"> Gender </label>
+                <select id="gender" name="gender">
+                    <option value=""> Any </option>
+                    <option value="female"> Female </option>
+                    <option value="male"> Male </option>
+                    <option value="genderless"> Genderless </option>
+                    <option value="unknown"> Unknown </option>
+                </select> <br>
+                <label for="Status"> Status </label>
+                <select id="status" name="status">
+                    <option value=""> Any </option>
+                    <option value="alive"> Alive </option>
+                    <option value="dead"> Dead </option>
+                    <option value="unknown"> Unknown </option>
+                </select> <br>
+                <div class="filter-button-container">
+                    <input type="submit" value="Find Bounty" formaction="/search" formmethod="post" />
+                    <input type="submit" value="Random Bounty" formaction="/random" formmethod="get" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+<%- include("partials/footer.ejs") %>

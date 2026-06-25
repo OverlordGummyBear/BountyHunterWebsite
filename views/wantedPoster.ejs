@@ -1,0 +1,33 @@
+<%- include("partials/header.ejs") %>
+
+    <div class="wanted-container">
+        <h1> WANTED </h1>
+        <h2> Dead or Alive </h2>
+
+        <img src="<%= data.image %>" alt="Picture of <%= data.name %>">
+
+        <h2> <%= data.name %></h2>
+
+        <div class="information-container">
+            <p> Species: <%= data.species %></p>
+
+            <!--Not all characters has a type (character type or subspecies)-->
+            <% if(data.type) { %>
+                <p> Type: <%= data.type %></p>
+            <% } %>
+            <p> Gender: <%= data.gender %></p>
+            <p> Location: <%= data.location.name %></p>
+        </div>
+
+        <!--Reward according to how many episodes the character appear in-->
+        <h2> REWARD </h2>
+        <h3> <%= data.episode.length * 10000 %> CASH </h3>
+    </div>
+
+    <div class="return-button-container">
+        <form>
+            <input type="submit" value="Find Another Bounty" formaction="/" />
+        </form>
+    </div>
+
+<%- include("partials/footer.ejs") %>

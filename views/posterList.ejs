@@ -1,0 +1,84 @@
+<%- include("partials/header.ejs") %>
+
+<% if(locals.error) { %>
+    <div class="no-bounty-container">
+        <h2> No Bounties Match The Criteria </h2>
+
+        <div class="return-button-container">
+            <form>
+                <input type="submit" value="Find Another Bounty" formaction="/" />
+            </form>
+        </div>
+    </div>
+<% } else { %>
+
+    <div class="wanted-list-container">
+        <% for(let i=0; i < data.results.length; i++) { %>
+            <div class="wanted-post-container">
+                <a href="/character/<%= data.results[i].id %>"> 
+                    <img src="<%= data.results[i].image %>" alt="Picture of <%= data.results[i].name %>" >
+                </a>
+                <p>
+                    <%= data.results[i].name %>
+                </p>
+            </div>
+        <% } %>
+    </div>
+
+    <div class="pagination-container">
+        <% 
+            currentPage = Number(currentPage)
+            let counter = ((currentPage - 5) < 1) ? 1 : currentPage - 4;
+            let maxPages = ((currentPage + 4) > pages) ? pages : counter + 9;
+        %>
+
+        <form action="/search" method="post"> 
+            <!--Elements that the query need to get to the correct page -->
+            <input type="hidden" name="name" value="<%= filters.name %>">
+            <input type="hidden" name="species" value="<%= filters.species %>">
+            <input type="hidden" name="type" value="<%= filters.type %>">
+            <input type="hidden" name="gender" value="<%= filters.gender %>">
+            <input type="hidden" name="status" value="<%= filters.status %>">
+            <input type="hidden" name="page" value="<%= currentPage - 1 %>">
+            <% if (currentPage===1) { %>
+                <p> < </p> <!--Use < in a p so it cannot be cliced on-->
+            <% } else { %>
+                <button type="submit"> < </button>
+            <% } %>
+        </form>
+
+        <% for (let index=counter; index <=maxPages; index++) { %>
+            <form action="/search" method="post">
+                <!--Elements that the query need to get to the correct page -->
+                <input type="hidden" name="name" value="<%= filters.name %>">
+                <input type="hidden" name="species" value="<%= filters.species %>">
+                <input type="hidden" name="type" value="<%= filters.type %>">
+                <input type="hidden" name="gender" value="<%= filters.gender %>">
+                <input type="hidden" name="status" value="<%= filters.status %>">
+                <input type="hidden" name="page" value="<%= index %>">
+                <% if (currentPage===index) { %>
+                    <p> <%= index %> </p>
+                <% } else { %>
+                    <button type="submit"> <%= index %> </button>
+                <% } %>
+            </form>
+            <% } %>
+
+        <form action="/search" method="post">
+            <!--Elements that the query need to get to the correct page -->
+            <input type="hidden" name="name" value="<%= filters.name %>">
+            <input type="hidden" name="species" value="<%= filters.species %>">
+            <input type="hidden" name="type" value="<%= filters.type %>">
+            <input type="hidden" name="gender" value="<%= filters.gender %>">
+            <input type="hidden" name="status" value="<%= filters.status %>">
+            <input type="hidden" name="page" value="<%= currentPage + 1 %>">
+            <% if (currentPage===pages) { %>
+                <p> > </p>
+            <% } else { %>
+                <button type="submit"> > </button>
+            <% } %>
+        </form>
+    </div>
+<% } %>
+
+<%- include("partials/footer.ejs") %>

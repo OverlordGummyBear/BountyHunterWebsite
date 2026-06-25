@@ -30,6 +30,8 @@
             currentPage = Number(currentPage)
             let counter = ((currentPage - 5) < 1) ? 1 : currentPage - 4;
             let maxPages = ((currentPage + 4) > pages) ? pages : counter + 9;
+
+            if(maxPages > pages ) maxPages = pages; //Make sure that maxPages is never larger than the maximum amount of pages
         %>
 
         <form action="/search" method="post"> 
